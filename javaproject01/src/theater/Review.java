@@ -43,9 +43,27 @@ public class Review extends Movie{
 
 	@Override
 	public String toString() {
-		return "Review [" + reviewNum + ", " + this.getMovieNum()+ ", " + reviewRate + ", " + comment + "]";
+		return formatAlign(reviewNum, 10)
+				+ formatAlign(this.getMovieNum(), 10)
+				+ formatAlign(reviewRate, 10)
+				+ formatAlign(comment, 100);
 	}
 	
+	public static String formatAlign(String text, int width) {
+		int displayWidth = 0;
+		for (char c : text.toCharArray()) {
+			// 한글은 보통 2칸으로 간주
+			displayWidth += (Character.UnicodeBlock.of(c) == Character.UnicodeBlock.HANGUL_SYLLABLES) ? 2 : 1;
+		}
 	
-	
+		int padding = Math.max(width - displayWidth, 0);
+		return text + " ".repeat(padding);
+	}
+
+	public static String formatAlign(int number, int width) {
+		return formatAlign(String.valueOf(number), width);
+	}
+	public static String formatAlign(double number, int width) {
+		return formatAlign(String.valueOf(number), width);
+	}
 }

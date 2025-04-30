@@ -44,9 +44,25 @@ public class Reservation extends Movie {
 
 	@Override
 	public String toString() {
-		return "Reservation [" + phoneNum + ", " + userName + ", " + this.getMovieName() + ", " + seatNum + "]";
+		return formatAlign(phoneNum, 20)
+				+ formatAlign(userName, 10)
+				+ formatAlign(this.getMovieName(), 30)
+				+ formatAlign(seatNum, 10);
 	}
 
+	public static String formatAlign(String text, int width) {
+		int displayWidth = 0;
+		for (char c : text.toCharArray()) {
+			// 한글은 보통 2칸으로 간주
+			displayWidth += (Character.UnicodeBlock.of(c) == Character.UnicodeBlock.HANGUL_SYLLABLES) ? 2 : 1;
+		}
 	
+		int padding = Math.max(width - displayWidth, 0);
+		return text + " ".repeat(padding);
+	}
+
+	public static String formatAlign(int number, int width) {
+		return formatAlign(String.valueOf(number), width);
+	}
 	
 }

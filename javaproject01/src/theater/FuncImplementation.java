@@ -75,7 +75,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 				e.printStackTrace();
 			}
 			
-			System.out.println("---영화 파일 저장 완료---");
+			System.out.println("━━━━━영화 파일 저장 완료━━━━━");
 		}else{
 			System.out.println("업데이트된된 내용을 저장하지 않았습니다.");
 		}
@@ -142,7 +142,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 				e.printStackTrace();
 			}
 			
-			System.out.println("---예매 파일 저장 완료---");
+			System.out.println("━━━━━예매 파일 저장 완료━━━━━");
 		}else{
 			System.out.println("업데이트된된 내용을 저장하지 않았습니다.");
 		}
@@ -208,7 +208,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 				e.printStackTrace();
 			}
 			
-			System.out.println("---리뷰 파일 저장 완료---");
+			System.out.println("━━━━━리뷰 파일 저장 완료━━━━━");
 		}else{
 			System.out.println("업데이트된된 내용을 저장하지 않았습니다.");
 		}
@@ -234,7 +234,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 	@Override
 	public void movieAdd(ArrayList<Movie> mvList, Scanner s) {
-		System.out.println("---영화 등록---");
+		System.out.println("━━━━━영화 등록━━━━━");
 		
 		int max = Integer.MIN_VALUE;
 		for(Movie data : mvList) {
@@ -253,7 +253,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 	@Override
 	public void movieModify(ArrayList<Movie> mvList, Scanner s) {
-		System.out.println("---영화 수정---");
+		System.out.println("━━━━━영화 수정━━━━━");
 		
 		String search = PatternInspection(s, "수정할 영화 검색(제목) : ", "(?u)^[\\uAC00-\\uD7A3a-zA-Z0-9\\s]{1,30}$");
 		Movie modifyMovie = null;
@@ -279,7 +279,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 	@Override
 	public void movieRemove(ArrayList<Movie> mvList, Scanner s) {
-		System.out.println("---영화 삭제---");
+		System.out.println("━━━━━영화 삭제━━━━━");
 		
 		String search = PatternInspection(s, "삭제할 영화 검색(제목) : ", "(?u)^[\\uAC00-\\uD7A3a-zA-Z0-9\\s]{1,30}$");
 		Movie removeMovie = null;
@@ -301,11 +301,11 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 	@Override
 	public void movieList(ArrayList<Movie> mvList, Scanner s) {
-		System.out.println("---개봉 영화 확인---");
 		
 		int page = 1;
 		while(true) {
 			clear();
+			System.out.println("━━━━━개봉 영화 확인━━━━━");
 			// 전체 페이지를 구한다
 			int totalPage = mvList.size() / 10;
 			int remainValue = mvList.size() % 10;
@@ -322,8 +322,14 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 			
 			// for문을 통해 페이지별 출력
 			System.out.printf("현재 %d / 전체 %d page\n", page, totalPage);
+			
+			System.out.print(formatAlign("번호", 10));
+			System.out.print(formatAlign("제목", 30));
+			System.out.print(formatAlign("개봉일", 15));
+			System.out.println(formatAlign("관객수", 10));
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			for(int i = first; i < last; i++) {
-				System.out.println(mvList.get(i));
+				System.out.println(mvList.get(i).toString());
 			}
 			page = Integer.parseInt(PatternInspection(s, "Page 입력 (Exit : -1) > ", "^\\d{1,2}$|^-1"));
 		
@@ -342,7 +348,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 	@Override
 	public void reservationAsc(ArrayList<Movie> mvList, Scanner s) {
 		Collections.sort(mvList);
-		System.out.println("---오름차순 정렬 완료---");
+		System.out.println("━━━━━오름차순 정렬 완료━━━━━");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -367,6 +373,12 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 			
 			// for문을 통해 페이지별 출력
 			System.out.printf("현재 %d / 전체 %d page\n", page, totalPage);
+
+			System.out.print(formatAlign("번호", 10));
+			System.out.print(formatAlign("제목", 30));
+			System.out.print(formatAlign("개봉일", 15));
+			System.out.println(formatAlign("관객수", 10));
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			for(int i = first; i < last; i++) {
 				System.out.println(mvList.get(i));
 			}
@@ -386,7 +398,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 	@Override
 	public void reservationDesc(ArrayList<Movie> mvList, Scanner s) {
 		Collections.sort(mvList, Collections.reverseOrder());
-		System.out.println("---내림차순 정렬 완료---");
+		System.out.println("━━━━━내림차순 정렬 완료━━━━━");
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
@@ -411,6 +423,12 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 			
 			// for문을 통해 페이지별 출력
 			System.out.printf("현재 %d / 전체 %d page\n", page, totalPage);
+
+			System.out.print(formatAlign("번호", 10));
+			System.out.print(formatAlign("제목", 30));
+			System.out.print(formatAlign("개봉일", 15));
+			System.out.println(formatAlign("관객수", 10));
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			for(int i = first; i < last; i++) {
 				System.out.println(mvList.get(i));
 			}
@@ -455,7 +473,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 	@Override
 	public void reservationAdd(ArrayList<Reservation> rsvList, Scanner s) {
-		System.out.println("---예매 신청---");
+		System.out.println("━━━━━예매 신청━━━━━");
 		Reservation reservation = null;
 
 		String name = PatternInspection(s, "예매자 이름 : ","^[가-힣A-Za-z]{1,20}$");
@@ -495,7 +513,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 	@Override
 	public void reservationCancle(ArrayList<Reservation> rsvList, Scanner s) {
-		System.out.println("---예매 취소---");
+		System.out.println("━━━━━예매 취소━━━━━");
 		String canclePhoneNum = PatternInspection(s, "예매 휴대폰 번호 : ", "^(01[016789])-\\d{3,4}-\\d{4}$");
 		Reservation imsiRsv = null;
 
@@ -539,6 +557,12 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 			}
 			// for문을 통해 페이지별 출력
 			System.out.printf("현재 %d / 전체 %d page\n", page, totalPage);
+
+			System.out.print(formatAlign("연락처", 20));
+			System.out.print(formatAlign("이름", 10));
+			System.out.print(formatAlign("영화", 30));
+			System.out.println(formatAlign("좌석", 10));
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			for(int i = first; i < last; i++) {
 				System.out.println(rsvList.get(i));
 			}
@@ -557,7 +581,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 	@Override
 	public void reservationModify(ArrayList<Reservation> rsvList, Scanner s) {
-		System.out.println("---예매 수정---");
+		System.out.println("━━━━━예매 수정━━━━━");
 		String canclePhoneNum = PatternInspection(s, "예매 휴대폰 번호 : ", "^(01[016789])-\\d{3,4}-\\d{4}$");
 		Reservation imsiRsv = null;
 
@@ -628,7 +652,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 	@Override
 	public void reviewWrite(ArrayList<Review> rvList, ArrayList<Movie> mvList, Scanner s) {
-		System.out.println("---리뷰 작성---");
+		System.out.println("━━━━━리뷰 작성━━━━━");
 		int max = Integer.MIN_VALUE;
 		for(Review data : rvList) {
 			if(max < data.getReviewNum()) {
@@ -657,7 +681,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 	@Override
 	public void reviewPrint(ArrayList<Review> rvList, Scanner s) {
-		System.out.println("---리뷰 조회---");
+		System.out.println("━━━━━리뷰 조회━━━━━");
 		int page = 1;
 		while(true) {
 			// 전체 페이지를 구한다
@@ -675,6 +699,12 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 			}
 			// for문을 통해 페이지별 출력
 			System.out.printf("현재 %d / 전체 %d page\n", page, totalPage);
+
+			System.out.print(formatAlign("번호", 10));
+			System.out.print(formatAlign("영화", 10));
+			System.out.print(formatAlign("평점", 10));
+			System.out.println(formatAlign("코멘트", 100));
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			for(int i = first; i < last; i++) {
 				System.out.println(rvList.get(i));
 			}
@@ -719,6 +749,25 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
         } catch (Exception e) {
             System.out.println(e);
         }
+	}
+
+	// 자리수 맞추기 함수
+	public static String formatAlign(String text, int width) {
+		int displayWidth = 0;
+		for (char c : text.toCharArray()) {
+			// 한글은 보통 2칸으로 간주
+			displayWidth += (Character.UnicodeBlock.of(c) == Character.UnicodeBlock.HANGUL_SYLLABLES) ? 2 : 1;
+		}
+	
+		int padding = Math.max(width - displayWidth, 0);
+		return text + " ".repeat(padding);
+	}
+
+	public static String formatAlign(int number, int width) {
+		return formatAlign(String.valueOf(number), width);
+	}
+	public static String formatAlign(double number, int width) {
+		return formatAlign(String.valueOf(number), width);
 	}
 
 }

@@ -60,7 +60,10 @@ public class Movie implements Comparable<Movie> {
 
 	@Override
 	public String toString() {
-		return "Movie [" + movieNum + ", " + movieName + ", " + releaseDate + ", " + reservationCount + "]";
+		return formatAlign(movieNum, 10)
+               	+ formatAlign(movieName, 30)
+               	+ formatAlign(releaseDate, 15)
+               	+ formatAlign(reservationCount, 10);
 	}
 	
 	@Override
@@ -77,6 +80,21 @@ public class Movie implements Comparable<Movie> {
 		}else {
 			return 0;
 		}
+	}
+
+	public static String formatAlign(String text, int width) {
+		int displayWidth = 0;
+		for (char c : text.toCharArray()) {
+			// 한글은 보통 2칸으로 간주
+			displayWidth += (Character.UnicodeBlock.of(c) == Character.UnicodeBlock.HANGUL_SYLLABLES) ? 2 : 1;
+		}
+	
+		int padding = Math.max(width - displayWidth, 0);
+		return text + " ".repeat(padding);
+	}
+
+	public static String formatAlign(int number, int width) {
+		return formatAlign(String.valueOf(number), width);
 	}
 	
 }
