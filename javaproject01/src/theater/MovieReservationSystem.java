@@ -15,7 +15,7 @@ public class MovieReservationSystem extends Thread {
 		boolean stopFlag = false;
 		boolean adminStop = false;
 		boolean userStop = false;
-		Scanner s = new Scanner(System.in);
+		Scanner s = new Scanner(System.in, "ECU-KR");
 		ArrayList<Movie> mvList = new ArrayList<>();
 		ArrayList<Reservation> rsvList = new ArrayList<>();
 		ArrayList<Review> rvList = new ArrayList<>();
