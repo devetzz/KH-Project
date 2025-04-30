@@ -1,0 +1,14 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+
+    "files.encoding": "utf8",
+    "java.debug.settings.vmArgs": "-Dfile.encoding=UTF-8",
+
+    "terminal.integrated.encoding": "utf8"
+
+    
+}

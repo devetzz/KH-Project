@@ -9,13 +9,13 @@ public class MovieReservationSystem extends Thread {
 	public static String movieField;
 	public static String reservationField;
 	public static String reviewField;
-
+	
 	public static void main(String[] args) throws InterruptedException {
 		// 변수 선언
 		boolean stopFlag = false;
 		boolean adminStop = false;
 		boolean userStop = false;
-		Scanner s = new Scanner(System.in, "ECU-KR");
+		Scanner s = new Scanner(System.in, "EUC-KR");
 		ArrayList<Movie> mvList = new ArrayList<>();
 		ArrayList<Reservation> rsvList = new ArrayList<>();
 		ArrayList<Review> rvList = new ArrayList<>();
