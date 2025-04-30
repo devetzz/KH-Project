@@ -15,12 +15,12 @@ public class MovieReservationSystem extends Thread {
 		boolean stopFlag = false;
 		boolean adminStop = false;
 		boolean userStop = false;
-		Scanner s = new Scanner(System.in, "EUC-KR");
+		Scanner s = new Scanner(System.in);
 		ArrayList<Movie> mvList = new ArrayList<>();
 		ArrayList<Reservation> rsvList = new ArrayList<>();
 		ArrayList<Review> rvList = new ArrayList<>();
 
-		FuncImplementation func = new FuncImplementation();
+		ReservationFuncInterface func = new FuncImplementation();
 		func.movieFileUpload(mvList);
 		func.reservationFileUpload(rsvList);
 		func.reviewFileUpload(rvList);
@@ -97,12 +97,12 @@ public class MovieReservationSystem extends Thread {
 										case Menu.MAX:
 											// clear();
 											func.reservationMax(mvList);
-											Thread.sleep(3000);
+											Thread.sleep(2000);
 											break;
 										case Menu.MIN:
 											// clear();
 											func.reservationMin(mvList);
-											Thread.sleep(3000);
+											Thread.sleep(2000);
 											break;
 										case Menu.RANKEXIT:
 											break;
@@ -217,12 +217,12 @@ public class MovieReservationSystem extends Thread {
 										case Menu.MAX:
 											clear();
 											func.reservationMax(mvList);
-											Thread.sleep(3000);
+											Thread.sleep(2000);
 											break;
 										case Menu.MIN:
 											clear();
 											func.reservationMin(mvList);
-											Thread.sleep(3000);
+											Thread.sleep(2000);
 											break;
 										case Menu.RANKEXIT:
 											break;

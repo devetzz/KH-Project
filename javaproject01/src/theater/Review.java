@@ -2,16 +2,16 @@ package theater;
 
 public class Review extends Movie{
 	private int reviewNum;
-	// movieNum
+	// movieNum => movieName
 	private double reviewRate;
 	private String comment;
 	
 	public Review() {
-		this(0,0,0.0,null);
+		this(0,null,0.0,null);
 	}
 
-	public Review(int reviewNum, int movieNum, double reviewRate, String comment) {
-		this.setMovieNum(movieNum);
+	public Review(int reviewNum, String movieName, double reviewRate, String comment) {
+		this.setMovieName(movieName);
 		this.reviewNum = reviewNum;
 		this.reviewRate = reviewRate;
 		this.comment = comment;
@@ -44,7 +44,7 @@ public class Review extends Movie{
 	@Override
 	public String toString() {
 		return formatAlign(reviewNum, 10)
-				+ formatAlign(this.getMovieNum(), 10)
+				+ formatAlign(this.getMovieName(), 20)
 				+ formatAlign(reviewRate, 10)
 				+ formatAlign(comment, 100);
 	}

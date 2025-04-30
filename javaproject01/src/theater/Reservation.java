@@ -45,7 +45,7 @@ public class Reservation extends Movie {
 	@Override
 	public String toString() {
 		return formatAlign(phoneNum, 20)
-				+ formatAlign(userName, 10)
+				+ formatAlign(userName, 15)
 				+ formatAlign(this.getMovieName(), 30)
 				+ formatAlign(seatNum, 10);
 	}

@@ -165,11 +165,11 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 				}
 				String[] tokens = s.nextLine().split(",");
 				int reviewNum = Integer.parseInt(tokens[0]);
-				int movieNum = Integer.parseInt(tokens[1]);
+				String movieName = tokens[1];
 				double reviewRate = Double.parseDouble(tokens[2]);
 				String comment = tokens[3];
 				
-				Review review = new Review(reviewNum, movieNum, reviewRate, comment);
+				Review review = new Review(reviewNum, movieName, reviewRate, comment);
 				
 				rvList.add(review);
 				
@@ -198,7 +198,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 			ps.printf("%s\n", MovieReservationSystem.reviewField);
 			
 			for(Review data : rvList) {
-				ps.printf("%d,%d,%.1f,%s\n", data.getReviewNum(), data.getMovieNum(), data.getReviewRate(), data.getComment());
+				ps.printf("%d,%s,%.1f,%s\n", data.getReviewNum(), data.getMovieName(), data.getReviewRate(), data.getComment());
 			}
 			
 			ps.close();
@@ -244,7 +244,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 		}
 		int movieNum = max+1;
 		
-		String movieName = PatternInspection(s, "등록할 영화 이름 : ", "^[가-힣a-zA-Z0-9\\s]{1,30}$");
+		String movieName = PatternInspection(s, "등록할 영화 이름 : ", "^[\\p{IsHangul}a-zA-Z0-9\\s]{1,30}$");
 		String releaseDate = PatternInspection(s, "등록할 영화 개봉일 : ", "\\d{4}-\\d{2}-\\d{2}");
 		Movie movie = new Movie(movieNum, movieName, releaseDate, 0);
 		mvList.add(movie);
@@ -255,7 +255,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 	public void movieModify(ArrayList<Movie> mvList, Scanner s) {
 		System.out.println("━━━━━영화 수정━━━━━");
 		
-		String search = PatternInspection(s, "수정할 영화 검색(제목) : ", "(?u)^[\\uAC00-\\uD7A3a-zA-Z0-9\\s]{1,30}$");
+		String search = PatternInspection(s, "수정할 영화 검색(제목) : ", "^[\\p{IsHangul}a-zA-Z0-9\\s]{1,30}$");
 		Movie modifyMovie = null;
 		for(Movie data : mvList) {
 			if(data.getMovieName().equals(search)) {
@@ -268,7 +268,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 			return;
 		}
 		
-		String movieName = PatternInspection(s, "수정할 제목 : ", "(?u)^[\\uAC00-\\uD7A3a-zA-Z0-9\\s]{1,30}$");
+		String movieName = PatternInspection(s, "수정할 제목 : ", "^[\\p{IsHangul}a-zA-Z0-9\\s]{1,30}$");
 		String releaseDate = PatternInspection(s, "수정할 개봉일 : ", "\\d{4}-\\d{2}-\\d{2}");
 		
 		modifyMovie.setMovieName(movieName);
@@ -348,7 +348,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 	@Override
 	public void reservationAsc(ArrayList<Movie> mvList, Scanner s) {
 		Collections.sort(mvList);
-		System.out.println("━━━━━오름차순 정렬 완료━━━━━");
+		System.out.println("━━━━━예매율 낮은 순 정렬 완료━━━━━");
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
@@ -398,9 +398,9 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 	@Override
 	public void reservationDesc(ArrayList<Movie> mvList, Scanner s) {
 		Collections.sort(mvList, Collections.reverseOrder());
-		System.out.println("━━━━━내림차순 정렬 완료━━━━━");
+		System.out.println("━━━━━예매율 높은 순 정렬 완료━━━━━");
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -476,9 +476,9 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 		System.out.println("━━━━━예매 신청━━━━━");
 		Reservation reservation = null;
 
-		String name = PatternInspection(s, "예매자 이름 : ","^[가-힣A-Za-z]{1,20}$");
+		String name = PatternInspection(s, "예매자 이름 : ","^[\\p{IsHangul}A-Za-z]{1,20}$");
 		String phoneNum = PatternInspection(s, "휴대폰 번호 : ", "^(01[016789])-\\d{3,4}-\\d{4}$");
-		String movieName = PatternInspection(s, "영화 제목 : ", "[가-힣A-Za-z0-9]{1,30}$");
+		String movieName = PatternInspection(s, "영화 제목 : ", "[\\p{IsHangul}A-Za-z0-9]{1,30}$");
 		int seatNum = 0;
 		do{
 			// for(int i = 0 ; i < 50 ; i++){
@@ -503,6 +503,7 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 				}
 			}
 			if(seatNum != 0){
+				System.out.println("성공적으로 예매되었습니다.");
 				break;
 			}
 		}while(true);
@@ -519,7 +520,12 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 		for(Reservation data : rsvList){
 			if(data.getPhoneNum().equals(canclePhoneNum)){
-				System.out.println("예매 정보 : " + data);
+				System.out.print(formatAlign("번호", 10));
+				System.out.print(formatAlign("제목", 30));
+				System.out.print(formatAlign("개봉일", 15));
+				System.out.println(formatAlign("관객수", 10));
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+				System.out.println(data);
 				imsiRsv = data;
 				break;
 			}
@@ -559,10 +565,10 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 			System.out.printf("현재 %d / 전체 %d page\n", page, totalPage);
 
 			System.out.print(formatAlign("연락처", 20));
-			System.out.print(formatAlign("이름", 10));
+			System.out.print(formatAlign("이름", 15));
 			System.out.print(formatAlign("영화", 30));
 			System.out.println(formatAlign("좌석", 10));
-			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			for(int i = first; i < last; i++) {
 				System.out.println(rsvList.get(i));
 			}
@@ -587,7 +593,12 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 
 		for(Reservation data : rsvList){
 			if(data.getPhoneNum().equals(canclePhoneNum)){
-				System.out.println("예매 정보 : " + data);
+				System.out.print(formatAlign("번호", 10));
+				System.out.print(formatAlign("제목", 30));
+				System.out.print(formatAlign("개봉일", 15));
+				System.out.println(formatAlign("관객수", 10));
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+				System.out.println(data);
 				imsiRsv = data;
 				break;
 			}
@@ -595,9 +606,9 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 		if(imsiRsv == null){
 			System.out.println(canclePhoneNum + "으로 검색된 예매 정보는 없습니다.");
 		}else{
-			String name = PatternInspection(s, "수정할 예매자 이름 : ","^[가-힣A-Za-z]{1,20}$");
+			String name = PatternInspection(s, "수정할 예매자 이름 : ","^[\\p{IsHangul}A-Za-z]{1,20}$");
 			String phoneNum = PatternInspection(s, "수정할 휴대폰 번호 : ", "^(01[016789])-\\d{3,4}-\\d{4}$");
-			String movieName = PatternInspection(s, "수정할 영화 제목 : ", "[가-힣A-Za-z0-9]{1,30}$");
+			String movieName = PatternInspection(s, "수정할 영화 제목 : ", "[\\p{IsHangul}A-Za-z0-9]{1,30}$");
 			int seatNum = 0;
 			do{
 				// for(int i = 0 ; i < 50 ; i++){
@@ -660,30 +671,34 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 			}
 		}
 		int reviewNum = max+1;
-		int movieNum = Integer.parseInt(PatternInspection(s, "영화 번호 입력 : ", "^[0-9]{1,2}$"));
+		// String movieName = PatternInspection(s, "영화 제목 입력 : ", "^[\\p{IsHangul}a-zA-Z0-9\\s]{1,30}$");
+		System.out.print("영화 제목 입력 : ");
+		String movieName = s.nextLine();
 		boolean findMovie = false;
 		for(Movie movie : mvList){
-			if(movieNum == movie.getMovieNum()){
+			if(movieName.equals(movie.getMovieName())){
 				findMovie = true;
 			}
 		}
 		if(findMovie == true){
 			double reiewRate = Double.parseDouble(PatternInspection(s, "평점 입력 : ", "\\b(?:[0-4]\\.[0-9]|5\\.0)\\b"));
-			String comment = PatternInspection(s, "코멘트 입력 : ", "^[A-Za-z가-힣ㄱ-ㅎ0-9\\s]{1,100}$");
-			
-			Review review = new Review(reviewNum, movieNum, reiewRate, comment);
-			
+			// String comment = PatternInspection(s, "코멘트 입력 : ", "^[A-Za-z\\p{IsHangul}0-9\\s]{1,100}$");
+			System.out.print("코멘트 입력 : ");
+			String comment = s.nextLine();
+			Review review = new Review(reviewNum, movieName, reiewRate, comment);
+			System.out.println("리뷰 작성이 완료되었습니다.");
 			rvList.add(review);
 		}else{
-			System.out.println("해당 번호를 가진 영화는 없습니다.");
+			System.out.println("해당 영화는 존재하지 않습니다.");
 		}
 	}
 
 	@Override
 	public void reviewPrint(ArrayList<Review> rvList, Scanner s) {
-		System.out.println("━━━━━리뷰 조회━━━━━");
 		int page = 1;
 		while(true) {
+			clear();
+			System.out.println("━━━━━리뷰 조회━━━━━");
 			// 전체 페이지를 구한다
 			int totalPage = rvList.size() / 10;
 			int remainValue = rvList.size() % 10;
@@ -701,10 +716,10 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 			System.out.printf("현재 %d / 전체 %d page\n", page, totalPage);
 
 			System.out.print(formatAlign("번호", 10));
-			System.out.print(formatAlign("영화", 10));
+			System.out.print(formatAlign("영화", 20));
 			System.out.print(formatAlign("평점", 10));
 			System.out.println(formatAlign("코멘트", 100));
-			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			for(int i = first; i < last; i++) {
 				System.out.println(rvList.get(i));
 			}
