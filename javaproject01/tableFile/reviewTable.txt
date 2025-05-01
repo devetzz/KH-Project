@@ -52,3 +52,4 @@ reviewNum,movieName,reviewRate,comment
 51,범죄도시1,2.2,i love you
 52,괴물,4.5,스릴 넘쳤어요
 53,아이언맨,4.0,최고의 영화입니다
+54,괴물,4.1,노잼
