@@ -1,0 +1,8 @@
+{
+    "java.project.sourcePaths": [
+        "dbhomework01\\src"
+    ],
+    "java.project.referencedLibraries": [
+        "dbhomework01\\lib\\ojdbc11.jar"
+    ]
+}
