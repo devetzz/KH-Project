@@ -472,13 +472,28 @@ public class FuncImplementation extends Thread implements ReservationFuncInterfa
 	}
 
 	@Override
-	public void reservationAdd(ArrayList<Reservation> rsvList, Scanner s) {
+	public void reservationAdd(ArrayList<Reservation> rsvList, ArrayList<Movie> mvList, Scanner s) {
 		System.out.println("━━━━━예매 신청━━━━━");
 		Reservation reservation = null;
 
 		String name = PatternInspection(s, "예매자 이름 : ","^[\\p{IsHangul}A-Za-z]{1,20}$");
 		String phoneNum = PatternInspection(s, "휴대폰 번호 : ", "^(01[016789])-\\d{3,4}-\\d{4}$");
-		String movieName = PatternInspection(s, "영화 제목 : ", "[\\p{IsHangul}A-Za-z0-9]{1,30}$");
+		String movieName;
+		boolean movieFind = false;
+		do{
+			movieName = PatternInspection(s, "영화 제목 : ", "[\\p{IsHangul}A-Za-z0-9]{1,30}$");
+			for(Movie data : mvList){
+				if(movieName.equals(data.getMovieName())){
+					movieFind = true;
+					break;
+				}
+			}
+			if(movieFind){
+				break;
+			}
+			System.out.println("현재 상영 중인 영화를 선택하세요.");
+		}while(true);
+
 		int seatNum = 0;
 		do{
 			// for(int i = 0 ; i < 50 ; i++){

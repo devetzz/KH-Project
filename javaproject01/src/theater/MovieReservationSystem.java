@@ -29,6 +29,8 @@ public class MovieReservationSystem extends Thread {
 		while (!stopFlag) {
 			// 사용자 선택 메뉴
 			clear();
+			adminStop = false;
+			userStop = false;
 			Menu.userSelectMenuPrint();
 			int no = Integer.parseInt(PatternInspection(s, "사용자 선택 > ", "^[1-5]{1}$"));
 
@@ -123,7 +125,7 @@ public class MovieReservationSystem extends Thread {
 									switch (reservationNo) {
 										case Menu.RESERVATIONADD:
 											clear();
-											func.reservationAdd(rsvList, s);
+											func.reservationAdd(rsvList, mvList, s);
 											Thread.sleep(3000);
 											break;
 										case Menu.RESERVATIONREMOVE:
@@ -242,7 +244,7 @@ public class MovieReservationSystem extends Thread {
 									switch (reservationNo) {
 										case Menu.RESERVATIONADD:
 											clear();
-											func.reservationAdd(rsvList, s);
+											func.reservationAdd(rsvList, mvList, s);
 											Thread.sleep(3000);
 											break;
 										case Menu.RESERVATIONREMOVE:

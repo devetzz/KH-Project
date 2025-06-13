@@ -24,7 +24,7 @@ public interface ReservationFuncInterface {
 	public void reservationMax(ArrayList<Movie> rsvList);
 	public void reservationMin(ArrayList<Movie> rsvList);
 
-	public void reservationAdd(ArrayList<Reservation> rsvList, Scanner s);
+	public void reservationAdd(ArrayList<Reservation> rsvList, ArrayList<Movie> mvList, Scanner s);
 	public void reservationCancle(ArrayList<Reservation> rsvList, Scanner s);
 	public void reservationCheck(ArrayList<Reservation> rsvList, Scanner s);
 	public void reservationModify(ArrayList<Reservation> rsvList, Scanner s);
